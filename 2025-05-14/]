@@ -1,0 +1,44 @@
+#include <iostream>
+#include <vector>
+
+int inf = 1e9;
+int main() {
+    int n = 0;
+    std::cin >> n;
+    std::vector<std::vector<int>> dp(n, std::vector<int>(n));
+    for (int i = 0; i < n; ++i) {
+        for (int j = 0; j < n; ++j) {
+            std::cin >> dp[i][j];
+            if (dp[i][j] == -1) {
+                dp[i][j] = inf;
+            }
+            if (i == j) {
+                dp[i][j] = 0;
+            }
+        }
+    }
+    for (int k = 0; k < n; ++k) {
+        for (int i = 0; i < n; ++i) {
+            for (int j = 0; j < n; ++j) {
+                if (dp[i][k] != inf && dp[k][j] != inf) {
+                    dp[i][j] = std::min(dp[i][j], dp[i][k] + dp[k][j]);
+                }
+            }
+        }
+    }
+
+    std::vector<int> e(n, 0);
+    int d = 0;
+    int r = inf;
+    for (int i = 0; i < n; ++i) {
+        for (int j = 0; j < n; ++j) {
+            if (dp[i][j] != inf) {
+                e[i] = std::max(e[i], dp[i][j]);
+            }
+        }
+        d = std::max(d, e[i]);
+        r = std::min(r, e[i]);
+    }
+    std::cout << d << "\n" << r;
+    return 0;
+}
