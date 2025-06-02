@@ -1,0 +1,5 @@
+var bool Sydney = input(true)
+var bool Tokyo = input(true)
+var bool Frankfurt = input(true)
+var bool London = input(true)
+var bool New York = input(true)
